@@ -8,8 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		C322CC7B1E4E507D00B52247 /* QRCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C322CC711E4E507D00B52247 /* QRCode.framework */; };
-		C322CC801E4E507D00B52247 /* QRCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C322CC7F1E4E507D00B52247 /* QRCodeTests.swift */; };
 		C322CC821E4E507D00B52247 /* QRCode.h in Headers */ = {isa = PBXBuildFile; fileRef = C322CC741E4E507D00B52247 /* QRCode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C322CC8E1E4E629C00B52247 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C322CC8C1E4E629C00B52247 /* Nimble.framework */; };
+		C322CC8F1E4E629C00B52247 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C322CC8D1E4E629C00B52247 /* Quick.framework */; };
+		C322CC911E4E62B000B52247 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C322CC8C1E4E629C00B52247 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C322CC921E4E62B000B52247 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C322CC8D1E4E629C00B52247 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C322CC941E4E62C300B52247 /* QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C322CC931E4E62C300B52247 /* QRCode.swift */; };
+		C322CC961E4E62D500B52247 /* QRCodeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C322CC951E4E62D500B52247 /* QRCodeSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -22,13 +27,30 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		C322CC901E4E62A600B52247 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C322CC911E4E62B000B52247 /* Nimble.framework in CopyFiles */,
+				C322CC921E4E62B000B52247 /* Quick.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		C322CC711E4E507D00B52247 /* QRCode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QRCode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C322CC741E4E507D00B52247 /* QRCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRCode.h; sourceTree = "<group>"; };
 		C322CC751E4E507D00B52247 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C322CC7A1E4E507D00B52247 /* QRCodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QRCodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C322CC7F1E4E507D00B52247 /* QRCodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeTests.swift; sourceTree = "<group>"; };
 		C322CC811E4E507D00B52247 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C322CC8C1E4E629C00B52247 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
+		C322CC8D1E4E629C00B52247 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		C322CC931E4E62C300B52247 /* QRCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCode.swift; sourceTree = "<group>"; };
+		C322CC951E4E62D500B52247 /* QRCodeSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeSpec.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +65,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C322CC8E1E4E629C00B52247 /* Nimble.framework in Frameworks */,
+				C322CC8F1E4E629C00B52247 /* Quick.framework in Frameworks */,
 				C322CC7B1E4E507D00B52247 /* QRCode.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,6 +80,7 @@
 				C322CC731E4E507D00B52247 /* QRCode */,
 				C322CC7E1E4E507D00B52247 /* QRCodeTests */,
 				C322CC721E4E507D00B52247 /* Products */,
+				C322CC8B1E4E629C00B52247 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,6 +98,7 @@
 			children = (
 				C322CC741E4E507D00B52247 /* QRCode.h */,
 				C322CC751E4E507D00B52247 /* Info.plist */,
+				C322CC931E4E62C300B52247 /* QRCode.swift */,
 			);
 			path = QRCode;
 			sourceTree = "<group>";
@@ -80,10 +106,19 @@
 		C322CC7E1E4E507D00B52247 /* QRCodeTests */ = {
 			isa = PBXGroup;
 			children = (
-				C322CC7F1E4E507D00B52247 /* QRCodeTests.swift */,
 				C322CC811E4E507D00B52247 /* Info.plist */,
+				C322CC951E4E62D500B52247 /* QRCodeSpec.swift */,
 			);
 			path = QRCodeTests;
+			sourceTree = "<group>";
+		};
+		C322CC8B1E4E629C00B52247 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C322CC8C1E4E629C00B52247 /* Nimble.framework */,
+				C322CC8D1E4E629C00B52247 /* Quick.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +160,7 @@
 				C322CC761E4E507D00B52247 /* Sources */,
 				C322CC771E4E507D00B52247 /* Frameworks */,
 				C322CC781E4E507D00B52247 /* Resources */,
+				C322CC901E4E62A600B52247 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -148,6 +184,7 @@
 				TargetAttributes = {
 					C322CC701E4E507D00B52247 = {
 						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					C322CC791E4E507D00B52247 = {
@@ -196,6 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C322CC941E4E62C300B52247 /* QRCode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,7 +241,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C322CC801E4E507D00B52247 /* QRCodeTests.swift in Sources */,
+				C322CC961E4E62D500B52247 /* QRCodeSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +358,7 @@
 		C322CC861E4E507D00B52247 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -331,6 +370,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.dmrschmidt.QRCode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -338,6 +378,7 @@
 		C322CC871E4E507D00B52247 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -356,6 +397,11 @@
 		C322CC891E4E507D00B52247 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = QRCodeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.dmrschmidt.QRCodeTests;
@@ -367,6 +413,11 @@
 		C322CC8A1E4E507D00B52247 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = QRCodeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.dmrschmidt.QRCodeTests;
