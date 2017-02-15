@@ -29,6 +29,17 @@ To get the image representation of your created qrCode, simply retrieve it's
 let myImage: UIImage = qrCode.image
 ```
 
+To show the `QRCode` in a `UIImageView`, and if you're a fan of extensions,
+you may want to consider creating an extension in your app like so:
+
+```swift
+extension UIImageView {
+    convenience init(qrCode: QRCode) {
+        self.init(image: qrCode.image)
+    }    
+}
+```
+
 ## Customization
 
 A `QRCode` image can be customized in the following ways:
