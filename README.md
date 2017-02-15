@@ -17,12 +17,18 @@ github "dmrschmidt/QRCode", ~> 0.1
 You can create a `QRCode` from either `(NS)Data`, `(NS)String` or `(NS)URL`:
 
 ```swift
+// create a QRCode with all the default values
 let qrCodeA = QRCode(data: myData)
 let qrCodeB = QRCode(string: "my awesome QR code")
 let qrCodeC = QRCode(url: URL(string: "https://example.com"))
+
+// or by specifying the optional output image size
+let qrCodeD = QRCode(data: myData, imageSize: CGSize(width: 100, 100))
+let qrCodeE = QRCode(string: "my awesome QR code", imageSize: CGSize(width: 100, 100))
+let qrCodeF = QRCode(url: URL(string: "https://example.com"), imageSize: CGSize(width: 100, 100))
 ```
 
-To get the image representation of your created qrCode, simply retrieve it's
+To get the `UIImage` representation of your created qrCode, simply retrieve it's
 `image` attribute:
 
 ```swift

@@ -4,6 +4,8 @@ import Foundation
  Generator for QRCode images.
  */
 public struct QRCode {
+    private static let defaultImageSize = CGSize(width: 200, height: 200)
+
     /**
      Amount of input error correction data to append to the final QR code.
      Higher levels lead to larger image.
@@ -25,51 +27,81 @@ public struct QRCode {
 
     /// Output image foreground (actual code) color.
     /// Defaults to black.
-    public var color = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+    public var color = UIColor.black
 
     /// Output image background color.
     /// Defaults to white.
-    public var backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+    public var backgroundColor = UIColor.white
 
     /// Desired Output image size.
-    public var size = CGSize(width: 200, height: 200)
+    /// Defaults to 200 x 200 pt.
+    public var size: CGSize
 
     /// Amount of input error correction to apply. Default is `.Low`.
     public var inputCorrection = InputCorrection.low
 
 // MARK: - Initializers
 
-    public init(data: Data) {
+    /**
+     Creates a QRCode from the given Data.
+
+     - parameter data: The `Data` represented in the QRCode.
+     - parameter imageSize: The (optional) size for the `QRCode`'s image. Defaults to 200 x 200 pt.
+     */
+    public init(data: Data, imageSize: CGSize = defaultImageSize) {
         self.data = data
+        self.size = imageSize
     }
 
-    public init?(string: String) {
+    /**
+     Creates a QRCode from the given String.
+
+     - parameter string: The `String` represented in the QRCode.
+     - parameter imageSize: The (optional) size for the `QRCode`'s image. Defaults to 200 x 200 pt.
+     */
+    public init?(string: String, imageSize: CGSize = defaultImageSize) {
         guard let data = string.data(using: .isoLatin1) else { return nil }
         self.data = data
+        self.size = imageSize
     }
 
-    public init?(url: URL) {
+    /**
+     Creates a QRCode from the given URL.
+
+     - parameter url: The `URL` represented in the QRCode.
+     - parameter imageSize: The (optional) size for the `QRCode`'s image. Defaults to 200 x 200 pt.
+     */
+    public init?(url: URL, imageSize: CGSize = defaultImageSize) {
         guard let data = url.absoluteString.data(using: .isoLatin1) else { return nil }
         self.data = data
+        self.size = imageSize
     }
 
-    /// The QRCode's UIImage representation
+    /// The QRCode's UIImage representation.
     public var image: UIImage? {
-        guard let ciImage = ciImage else { return nil }
+        guard let ciImage = qrCodeScaledCiImage else { return nil }
 
-        let scaleX = size.width / ciImage.extent.size.width
-        let scaleY = size.height / ciImage.extent.size.height
+        // for proper scaling, e.g. in UIImageViews, we need a CGImage as the base
+        let context = CIContext(options: nil)
+        let cgImage = context.createCGImage(ciImage, from: ciImage.extent)!
 
-        let transformedImage = ciImage.applying(CGAffineTransform(scaleX: scaleX, y: scaleY))
-
-        return UIImage(ciImage: transformedImage)
+        return UIImage(cgImage: cgImage)
     }
 }
 
 // MARK: - Private
 
 extension QRCode {
-    fileprivate var ciImage: CIImage? {
+    fileprivate var qrCodeScaledCiImage: CIImage? {
+        guard let ciImage = qrCodeColoredCiImage else { return nil }
+
+        let scaleX = size.width / ciImage.extent.size.width
+        let scaleY = size.height / ciImage.extent.size.height
+
+        return ciImage.applying(CGAffineTransform(scaleX: scaleX, y: scaleY))
+    }
+
+    fileprivate var qrCodeColoredCiImage: CIImage? {
         guard let qrCodeImage = qrCodeImage,
               let colorFilter = CIFilter(name: "CIFalseColor") else { return nil }
 

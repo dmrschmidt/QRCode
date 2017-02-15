@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="QRCodeExamples" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UlQ-gJ-ODj">
+                                <rect key="frame" x="16" y="28" width="343" height="631"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="2yq-uT-eYc">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="203.5"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mg4-sW-rQi">
+                                                <rect key="frame" x="0.0" y="0.0" width="171.5" height="203.5"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7CF-l4-wDv">
+                                                <rect key="frame" x="171.5" y="0.0" width="171.5" height="203.5"/>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="qVI-CS-1uI">
+                                        <rect key="frame" x="0.0" y="213.5" width="343" height="204"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="y9g-Mz-kOP">
+                                                <rect key="frame" x="0.0" y="0.0" width="171.5" height="204"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dlb-tS-zFD">
+                                                <rect key="frame" x="171.5" y="0.0" width="171.5" height="204"/>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="TXC-jK-UCs">
+                                        <rect key="frame" x="0.0" y="427.5" width="343" height="203.5"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9BE-ef-sif">
+                                                <rect key="frame" x="0.0" y="0.0" width="171.5" height="203.5"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wka-VG-ygo">
+                                                <rect key="frame" x="171.5" y="0.0" width="171.5" height="203.5"/>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="UlQ-gJ-ODj" secondAttribute="bottom" constant="8" symbolic="YES" id="4RV-SJ-pyR"/>
+                            <constraint firstItem="UlQ-gJ-ODj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="LEL-97-TqF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="UlQ-gJ-ODj" secondAttribute="trailing" id="VLG-Ld-3Wd"/>
+                            <constraint firstItem="UlQ-gJ-ODj" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="qry-zh-pLJ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="outerStackView" destination="UlQ-gJ-ODj" id="4Mc-dg-AvA"/>
+                        <outlet property="qrCodeAImageView" destination="mg4-sW-rQi" id="o7D-z0-PrM"/>
+                        <outlet property="qrCodeBImageView" destination="7CF-l4-wDv" id="eY2-1I-N6b"/>
+                        <outlet property="qrCodeCImageView" destination="y9g-Mz-kOP" id="ysP-Br-R5c"/>
+                        <outlet property="qrCodeDImageView" destination="Dlb-tS-zFD" id="CpA-U9-saG"/>
+                        <outlet property="qrCodeEImageView" destination="9BE-ef-sif" id="eKs-ZK-Zql"/>
+                        <outlet property="qrCodeFImageView" destination="wka-VG-ygo" id="Pd7-rd-ic2"/>
+                        <outletCollection property="innerStackViews" destination="2yq-uT-eYc" collectionClass="NSMutableArray" id="thQ-lf-2In"/>
+                        <outletCollection property="innerStackViews" destination="qVI-CS-1uI" collectionClass="NSMutableArray" id="Qh1-Ld-Fgu"/>
+                        <outletCollection property="innerStackViews" destination="TXC-jK-UCs" collectionClass="NSMutableArray" id="Mh1-YM-iAG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
