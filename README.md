@@ -28,3 +28,15 @@ To get the image representation of your created qrCode, simply retrieve it's
 ```swift
 let myImage: UIImage = qrCode.image
 ```
+
+## Customization
+
+A `QRCode` image can be customized in the following ways:
+
+```swift
+var qrCode = QRCode(string: "my customized QR code")
+qrCode.size = CGSize(width: 300, height: 300) // final scaled image size
+qrCode.color = UIColor.red // image foreground (or actual code) color
+qrCode.backgroundColor = UIColor.blue // image background color
+qrCode.inputCorrection = .quartile // amount of error correction information added
+```
