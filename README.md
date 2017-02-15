@@ -57,3 +57,5 @@ qrCode.color = UIColor.red // image foreground (or actual code) color
 qrCode.backgroundColor = UIColor.blue // image background color
 qrCode.inputCorrection = .quartile // amount of error correction information added
 ```
+
+![Screenshot](https://github.com/dmrschmidt/QRCode/blob/master/screenshot.png)
