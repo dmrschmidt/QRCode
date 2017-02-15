@@ -1,0 +1,42 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    CFPropertyList (2.3.5)
+    activesupport (5.0.1)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (~> 0.7)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
+    claide (1.0.1)
+    colored (1.2)
+    concurrent-ruby (1.0.4)
+    i18n (0.8.0)
+    ios_toolchain (0.2.1)
+      bundler (~> 1.0)
+      rake (~> 12.0)
+      xcodeproj (~> 1.4)
+      xcpretty (~> 0.2)
+    minitest (5.10.1)
+    nanaimo (0.2.3)
+    rake (12.0.0)
+    rouge (1.11.1)
+    thread_safe (0.3.5)
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
+    xcodeproj (1.4.2)
+      CFPropertyList (~> 2.3.3)
+      activesupport (>= 3)
+      claide (>= 1.0.1, < 2.0)
+      colored (~> 1.2)
+      nanaimo (~> 0.2.3)
+    xcpretty (0.2.4)
+      rouge (~> 1.8)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ios_toolchain (~> 0.2)
+
+BUNDLED WITH
+   1.14.4
