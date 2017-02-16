@@ -46,14 +46,12 @@ class ViewController: UIViewController {
         qrCodeFImageView.image = qrCodeF.image
     }
 
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-
-        let orientation = UIApplication.shared.statusBarOrientation
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        let isVertical = newCollection.containsTraits(in: UITraitCollection(verticalSizeClass: .regular))
 
         coordinator.animate(alongsideTransition: { [unowned self] _ in
-            self.outerStackView.axis = (orientation == .portrait) ? .horizontal : .vertical
-            self.innerStackViews.forEach { $0.axis = (orientation == .portrait) ? .vertical : .horizontal }
+            self.outerStackView.axis = isVertical ? .vertical : .horizontal
+            self.innerStackViews.forEach { $0.axis = isVertical ? .horizontal : .vertical }
         })
     }
 }
