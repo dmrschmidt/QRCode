@@ -4,7 +4,10 @@ import Foundation
  Generator for QRCode images.
  */
 public struct QRCode {
+    private static let defaultColor = UIColor.black
+    private static let defaultBackgroundColor = UIColor.white
     private static let defaultImageSize = CGSize(width: 200, height: 200)
+    private static let defaultInputCorrection = InputCorrection.low
 
     /**
      Amount of input error correction data to append to the final QR code.
@@ -23,22 +26,22 @@ public struct QRCode {
     }
 
     /// QRCode data to be encoded.
-    public let data: Data
+    public var data: Data
 
     /// Output image foreground (actual code) color.
     /// Defaults to black.
-    public var color = UIColor.black
+    public var color = defaultColor
 
     /// Output image background color.
     /// Defaults to white.
-    public var backgroundColor = UIColor.white
+    public var backgroundColor = defaultBackgroundColor
 
     /// Desired Output image size.
     /// Defaults to 200 x 200 pt.
-    public var size: CGSize
+    public var size: CGSize = defaultImageSize
 
     /// Amount of input error correction to apply. Default is `.Low`.
-    public var inputCorrection = InputCorrection.low
+    public var inputCorrection = defaultInputCorrection
 
 // MARK: - Initializers
 
@@ -46,35 +49,57 @@ public struct QRCode {
      Creates a QRCode from the given Data.
 
      - parameter data: The `Data` represented in the QRCode.
-     - parameter imageSize: The (optional) size for the `QRCode`'s image. Defaults to 200 x 200 pt.
+     - parameter color: The `QRCode`'s image foreground (actual code) UIColor. Optional, defaults to black.
+     - parameter backgroundColor: The `QRCode`'s image background UIColor. Optional, defaults to white.
+     - parameter size: The `QRCode`'s image size. Optional, defaults to 200 x 200 pt.
+     - parameter inputCorrection: The `QRCode`'s image input correction size. Optional, defaults to 200 x 200 pt.
      */
-    public init(data: Data, imageSize: CGSize = defaultImageSize) {
+    public init(data: Data,
+                color: UIColor = defaultColor,
+                backgroundColor: UIColor = defaultBackgroundColor,
+                size: CGSize = defaultImageSize,
+                inputCorrection correction: InputCorrection = defaultInputCorrection) {
         self.data = data
-        self.size = imageSize
+        self.color = color
+        self.backgroundColor = backgroundColor
+        self.size = size
+        self.inputCorrection = correction
     }
 
     /**
      Creates a QRCode from the given String.
 
      - parameter string: The `String` represented in the QRCode.
-     - parameter imageSize: The (optional) size for the `QRCode`'s image. Defaults to 200 x 200 pt.
+     - parameter color: The `QRCode`'s image foreground (actual code) UIColor. Optional, defaults to black.
+     - parameter backgroundColor: The `QRCode`'s image background UIColor. Optional, defaults to white.
+     - parameter size: The `QRCode`'s image size. Optional, defaults to 200 x 200 pt.
+     - parameter inputCorrection: The `QRCode`'s image input correction size. Optional, defaults to 200 x 200 pt.
      */
-    public init?(string: String, imageSize: CGSize = defaultImageSize) {
+    public init?(string: String,
+                 color: UIColor = defaultColor,
+                 backgroundColor: UIColor = defaultBackgroundColor,
+                 size: CGSize = defaultImageSize,
+                 inputCorrection correction: InputCorrection = defaultInputCorrection) {
         guard let data = string.data(using: .isoLatin1) else { return nil }
-        self.data = data
-        self.size = imageSize
+        self.init(data: data, color: color, backgroundColor: backgroundColor, size: size, inputCorrection: correction)
     }
 
     /**
      Creates a QRCode from the given URL.
 
      - parameter url: The `URL` represented in the QRCode.
-     - parameter imageSize: The (optional) size for the `QRCode`'s image. Defaults to 200 x 200 pt.
+     - parameter color: The `QRCode`'s image foreground (actual code) UIColor. Optional, defaults to black.
+     - parameter backgroundColor: The `QRCode`'s image background UIColor. Optional, defaults to white.
+     - parameter size: The `QRCode`'s image size. Optional, defaults to 200 x 200 pt.
+     - parameter inputCorrection: The `QRCode`'s image input correction size. Optional, defaults to 200 x 200 pt.
      */
-    public init?(url: URL, imageSize: CGSize = defaultImageSize) {
+    public init?(url: URL,
+                 color: UIColor = defaultColor,
+                 backgroundColor: UIColor = defaultBackgroundColor,
+                 size: CGSize = defaultImageSize,
+                 inputCorrection correction: InputCorrection = defaultInputCorrection) {
         guard let data = url.absoluteString.data(using: .isoLatin1) else { return nil }
-        self.data = data
-        self.size = imageSize
+        self.init(data: data, color: color, backgroundColor: backgroundColor, size: size, inputCorrection: correction)
     }
 
     /// The QRCode's UIImage representation.

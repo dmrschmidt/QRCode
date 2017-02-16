@@ -15,12 +15,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let qrCodeA = QRCode(string: "hello", imageSize: CGSize(width: 130, height: 130))!
-        var qrCodeB = QRCode(url: URL(string: "http://hello.hello")!, imageSize: CGSize(width: 130, height: 130))!
-        var qrCodeC = QRCode(data: "hello".data(using: .isoLatin1)!, imageSize: CGSize(width: 100, height: 100))
-        var qrCodeD = QRCode(string: "this is fun", imageSize: CGSize(width: 100, height: 100))!
-        var qrCodeE = QRCode(url: URL(string: "https://example.com")!, imageSize: CGSize(width: 70, height: 70))!
-        var qrCodeF = QRCode(data: "isn't it?".data(using: .isoLatin1)!, imageSize: CGSize(width: 70, height: 70))
+        let qrCodeA = QRCode(string: "hello", size: CGSize(width: 130, height: 130))!
+        var qrCodeB = QRCode(url: URL(string: "http://hello.hello")!, size: CGSize(width: 130, height: 130))!
+        var qrCodeC = QRCode(data: "hello".data(using: .isoLatin1)!, size: CGSize(width: 100, height: 100))
+        var qrCodeD = QRCode(string: "this is fun", size: CGSize(width: 100, height: 100))!
+        var qrCodeE = QRCode(url: URL(string: "https://example.com")!, size: CGSize(width: 70, height: 70))!
+        let qrCodeF = QRCode(data: "isn't it?".data(using: .isoLatin1)!,
+                             color: UIColor(colorLiteralRed: 42/255.0, green: 50/255.0, blue: 75/255.0, alpha: 1),
+                             backgroundColor: UIColor(colorLiteralRed: 225/255.0, green: 229/255.0, blue: 238/255.0, alpha: 1),
+                             size: CGSize(width: 70, height: 70),
+                             inputCorrection: .medium)
 
         qrCodeB.color = UIColor(colorLiteralRed: 51/255.0, green: 50/255.0, blue: 46/255.0, alpha: 1)
         qrCodeB.backgroundColor = UIColor(colorLiteralRed: 189/255.0, green: 187/255.0, blue: 176/255.0, alpha: 1)
@@ -34,9 +38,6 @@ class ViewController: UIViewController {
 
         qrCodeE.color = UIColor(colorLiteralRed: 254/255.0, green: 101/255.0, blue: 79/255.0, alpha: 1)
         qrCodeE.backgroundColor = UIColor(colorLiteralRed: 254/255.0, green: 217/255.0, blue: 155/255.0, alpha: 1)
-
-        qrCodeF.color = UIColor(colorLiteralRed: 42/255.0, green: 50/255.0, blue: 75/255.0, alpha: 1)
-        qrCodeF.backgroundColor = UIColor(colorLiteralRed: 225/255.0, green: 229/255.0, blue: 238/255.0, alpha: 1)
 
         qrCodeAImageView.image = qrCodeA.image
         qrCodeBImageView.image = qrCodeB.image

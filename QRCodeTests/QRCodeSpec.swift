@@ -9,7 +9,7 @@ class QRCodeSpec: QuickSpec {
             var qrCode: QRCode!
             let size = CGSize(width: 300, height: 300)
 
-            describe("init(data:size:)") {
+            describe("init(data:color:backgroundColor:size:inputCorrection:)") {
                 var data: Data!
 
                 beforeEach {
@@ -26,13 +26,14 @@ class QRCodeSpec: QuickSpec {
                     expect(qrCode.data).to(equal(data))
                 }
 
-                it("can have an optional size") {
-                    qrCode = QRCode(data: data, imageSize: size)
+                it("can have optional params") {
+                    qrCode = QRCode(data: data, color: UIColor.red, size: size)
+                    expect(qrCode.color).to(equal(UIColor.red))
                     expect(qrCode.size).to(equal(size))
                 }
             }
 
-            describe("init(string:size:)") {
+            describe("init(string:color:backgroundColor:size:inputCorrection:)") {
                 var string: String!
 
                 beforeEach {
@@ -49,13 +50,14 @@ class QRCodeSpec: QuickSpec {
                     expect(qrCode.data).to(equal(string.data(using: .isoLatin1)))
                 }
 
-                it("can have an optional size") {
-                    qrCode = QRCode(string: string, imageSize: size)
+                it("can have optional params") {
+                    qrCode = QRCode(string: string, backgroundColor: UIColor.blue, size: size)
+                    expect(qrCode.backgroundColor).to(equal(UIColor.blue))
                     expect(qrCode.size).to(equal(size))
                 }
             }
 
-            describe("init(url:size:)") {
+            describe("init(url:color:backgroundColor:size:inputCorrection:)") {
                 var url: URL!
 
                 beforeEach {
@@ -72,8 +74,8 @@ class QRCodeSpec: QuickSpec {
                     expect(qrCode.data).to(equal(url.absoluteString.data(using: .isoLatin1)))
                 }
 
-                it("can have an optional size") {
-                    qrCode = QRCode(url: url, imageSize: size)
+                it("can have optional params") {
+                    qrCode = QRCode(url: url, size: size)
                     expect(qrCode.size).to(equal(size))
                 }
             }
