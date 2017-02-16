@@ -3,11 +3,12 @@ osx_image: xcode8.2
 xcode_project: QRCode.xcodeproj
 xcode_scheme: QRCode
 xcode_sdk: iphonesimulator10.2
-env:
-  global:
-    - FRAMEWORK_NAME=QRCode
 before_install:
   - brew update
   - brew outdated carthage || brew upgrade carthage
+install:
+  - bundle
 before_script:
   - carthage bootstrap
+script:
+  - rake ios:specs

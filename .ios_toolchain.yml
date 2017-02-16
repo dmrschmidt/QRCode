@@ -7,7 +7,7 @@ default-64bit-test-device: "'iOS Simulator,OS=10.2,name=iPhone 7'"
 app-targets:
 - QRCode
 test-targets:
-- QRCodeTests
+- QRCode
 ui-test-targets: []
 provisioning-path: "/Users/dschmidt/workspace/QRCode/provisioning"
-crashlytics-framework-path: 
+crashlytics-framework-path:
