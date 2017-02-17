@@ -5,6 +5,14 @@ import UIKit
  Generator for QRCode images.
  */
 public struct QRCode {
+    /**
+     Possible errors being thrown during QR code generation.
+     */
+    public enum GenerationError: Error {
+        /// Thrown when desired / requested image size is too small for the provided data.
+        case desiredSizeTooSmall(desired: CGSize, actual: CGSize)
+    }
+
     private static let defaultColor = UIColor.black
     private static let defaultBackgroundColor = UIColor.white
     private static let defaultImageSize: CGSize? = nil
@@ -117,9 +125,13 @@ public struct QRCode {
                   size: size, scale: scale, inputCorrection: correction)
     }
 
-    /// The QRCode's UIImage representation.
-    public var image: UIImage? {
-        guard let ciImage = qrCodeScaledCiImage else { return nil }
+    /**
+     The QRCode's UIImage representation.
+     Returns the encoded image.
+     - throws: GenerationError if requested image size is too small to encode the data.
+     */
+    public func image() throws -> UIImage {
+        let ciImage = try qrCodeScaledCiImage()
 
         // for proper scaling, e.g. in UIImageViews, we need a CGImage as the base
         let context = CIContext(options: nil)
@@ -127,13 +139,24 @@ public struct QRCode {
 
         return UIImage(cgImage: cgImage, scale: scale, orientation: .up)
     }
+
+    /**
+     The QRCode's UIImage representation. **Use carefully**.
+     Returns the encoded image **or nil** if requested image size is too small to encode the data.
+     */
+    public var unsafeImage: UIImage? {
+        return try? image()
+    }
 }
 
 // MARK: - Private
 
 extension QRCode {
-    fileprivate var qrCodeScaledCiImage: CIImage? {
-        guard let ciImage = qrCodeColoredCiImage else { return nil }
+    fileprivate func qrCodeScaledCiImage() throws -> CIImage {
+        let ciImage = try qrCodeColoredCiImage()
+        guard desiredSizeIsSufficient(for: ciImage) else {
+            throw GenerationError.desiredSizeTooSmall(desired: size!, actual: ciImage.extent.size)
+        }
 
         let resizeFactorX = (size == nil) ? 1 : size!.width / ciImage.extent.size.width
         let resizeFactorY = (size == nil) ? 1 : size!.height / ciImage.extent.size.height
@@ -143,25 +166,32 @@ extension QRCode {
         return ciImage.applying(CGAffineTransform(scaleX: scaleX, y: scaleY))
     }
 
-    fileprivate var qrCodeColoredCiImage: CIImage? {
-        guard let qrCodeImage = qrCodeImage,
-              let colorFilter = CIFilter(name: "CIFalseColor") else { return nil }
+    fileprivate func qrCodeColoredCiImage() throws -> CIImage {
+        let qrCodeImage = try qrCodeBaseImage()
+        let colorFilter = CIFilter(name: "CIFalseColor")!
 
         colorFilter.setDefaults()
         colorFilter.setValue(qrCodeImage, forKey: "inputImage")
         colorFilter.setValue(CIColor(cgColor: color.cgColor), forKey: "inputColor0")
         colorFilter.setValue(CIColor(cgColor: backgroundColor.cgColor), forKey: "inputColor1")
 
-        return colorFilter.outputImage
+        return colorFilter.outputImage!
     }
 
-    private var qrCodeImage: CIImage? {
-        guard !data.isEmpty, let qrCodeFilter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
+    private func qrCodeBaseImage() throws -> CIImage {
+        let qrCodeFilter = CIFilter(name: "CIQRCodeGenerator")!
 
         qrCodeFilter.setDefaults()
         qrCodeFilter.setValue(data, forKey: "inputMessage")
         qrCodeFilter.setValue(inputCorrection.rawValue, forKey: "inputCorrectionLevel")
 
-        return qrCodeFilter.outputImage
+        return qrCodeFilter.outputImage!
+    }
+
+    private func desiredSizeIsSufficient(for image: CIImage) -> Bool {
+        guard let desiredSize = size else { return true }
+        let hasSufficientWidth = desiredSize.width >= image.extent.size.width
+        let hasSufficientHeight = desiredSize.height >= image.extent.size.height
+        return hasSufficientWidth && hasSufficientHeight
     }
 }

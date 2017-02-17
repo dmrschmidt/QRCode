@@ -40,12 +40,12 @@ class ViewController: UIViewController {
         qrCodeE.color = UIColor(colorLiteralRed: 254/255.0, green: 101/255.0, blue: 79/255.0, alpha: 1)
         qrCodeE.backgroundColor = UIColor(colorLiteralRed: 254/255.0, green: 217/255.0, blue: 155/255.0, alpha: 1)
 
-        qrCodeAImageView.image = qrCodeA.image
-        qrCodeBImageView.image = qrCodeB.image
-        qrCodeCImageView.image = qrCodeC.image
-        qrCodeDImageView.image = qrCodeD.image
-        qrCodeEImageView.image = qrCodeE.image
-        qrCodeFImageView.image = qrCodeF.image
+        qrCodeAImageView.image = try? qrCodeA.image()
+        qrCodeBImageView.image = try? qrCodeB.image()
+        qrCodeCImageView.image = try? qrCodeC.image()
+        qrCodeDImageView.image = try? qrCodeD.image()
+        qrCodeEImageView.image = try? qrCodeE.image()
+        qrCodeFImageView.image = try? qrCodeF.image()
     }
 
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {

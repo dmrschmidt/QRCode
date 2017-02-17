@@ -26,12 +26,21 @@ let qrCodeB = QRCode(string: "my awesome QR code")
 let qrCodeC = QRCode(url: URL(string: "https://example.com"))
 ```
 
-To get the `UIImage` representation of your created qrCode, simply retrieve it's
-`image` attribute:
+To get the `UIImage` representation of your created qrCode, simply call it's
+`image` method:
 
 ```swift
-let myImage: UIImage = qrCode.image
+let myImage: UIImage? = try? qrCode.image()
 ```
+
+If you provide a desired `size` for the output image (see Customization below),
+this method can throw, in case the desired image size is too small for the data
+being provided, i.e. some pixels would need to be omitted during scaling.
+
+There is an alternative attribute `unsafeImage` accessible, which will simply
+return `nil` in these cases. If you never specify any custom size however, you
+could use `unsafeImage` instead, since the image will automatically pick the
+ideal size.
 
 To show the `QRCode` in a `UIImageView`, and if you're a fan of extensions,
 you may want to consider creating an extension in your app like so:
@@ -39,7 +48,7 @@ you may want to consider creating an extension in your app like so:
 ```swift
 extension UIImageView {
     convenience init(qrCode: QRCode) {
-        self.init(image: qrCode.image)
+        self.init(image: qrCode.unsafeImage)
     }    
 }
 ```

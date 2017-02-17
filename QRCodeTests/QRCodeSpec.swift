@@ -8,6 +8,7 @@ class QRCodeSpec: QuickSpec {
         describe("QRCode") {
             var qrCode: QRCode!
             let size = CGSize(width: 300, height: 300)
+            let inherentSize = CGSize(width: 23.0, height: 23.0)
 
             describe("init(data:color:backgroundColor:size:inputCorrection:)") {
                 var data: Data!
@@ -80,53 +81,74 @@ class QRCodeSpec: QuickSpec {
                 }
             }
 
-            describe("image") {
-                context("with empty or invalid data") {
-                    it("returns nil") {
-                        expect(QRCode(data: Data()).image).to(beNil())
+            describe("image()") {
+                context("with default or sufficient size") {
+                    it("creates image of optimal size for screen (1pt / datapoint)") {
+                        expect(try? QRCode(string: "hallo")!.image().scale).to(equal(UIScreen.main.scale))
+                        expect(try? QRCode(string: "hallo")!.image().size).to(equal(inherentSize))
                     }
                 }
 
-                context("with valid data") {
+                it("throws when width is too small for amount of data") {
+                    let desiredSize = CGSize(width: 10.0, height: 23.0)
+                    expect {
+                        try QRCode(string: "hallo", size: desiredSize)?.image()
+                    }.to(throwError(QRCode.GenerationError.desiredSizeTooSmall(desired: desiredSize, actual: inherentSize)))
+                }
+
+                it("throws when height is too small for amount of data") {
+                    let desiredSize = CGSize(width: 23.0, height: 10.0)
+                    expect {
+                        try QRCode(string: "hallo", size: desiredSize)?.image()
+                    }.to(throwError(QRCode.GenerationError.desiredSizeTooSmall(desired: desiredSize, actual: inherentSize)))
+                }
+            }
+
+            describe("unsafeImage") {
+                context("with empty data") {
+                    it("still returns proper image") {
+                        expect(QRCode(data: Data()).unsafeImage).toNot(beNil())
+                    }
+                }
+
+                context("with non-empty data") {
                     beforeEach {
                         qrCode = QRCode(string: "hallo")
                     }
 
-                    it("returns a valid image") {
-                        expect(qrCode.image).to(beAnInstanceOf(UIImage.self))
-                    }
-
                     it("creates image of optimal size for screen (1pt / datapoint)") {
-                        expect(qrCode.image!.scale).to(equal(UIScreen.main.scale))
-                        expect(qrCode.image!.size).to(equal(CGSize(width: 23.0, height: 23.0)))
+                        expect(qrCode.unsafeImage!.scale).to(equal(UIScreen.main.scale))
+                        expect(qrCode.unsafeImage!.size).to(equal(inherentSize))
                     }
 
                     context("scale") {
                         it("properly adjusts UIImage scale") {
-                            expect(QRCode(string: "hallo", scale: 1.0)!.image!.scale).to(equal(1.0))
-                            expect(QRCode(string: "hallo", scale: 2.0)!.image!.scale).to(equal(2.0))
-                            expect(QRCode(string: "hallo", scale: 3.0)!.image!.scale).to(equal(3.0))
+                            expect(QRCode(string: "hallo", scale: 1.0)!.unsafeImage!.scale).to(equal(1.0))
+                            expect(QRCode(string: "hallo", scale: 2.0)!.unsafeImage!.scale).to(equal(2.0))
+                            expect(QRCode(string: "hallo", scale: 3.0)!.unsafeImage!.scale).to(equal(3.0))
                         }
 
                         it("properly maintains UIImage target size") {
-                            expect(QRCode(string: "hallo", scale: 1.0)!.image!.size).to(equal(CGSize(width: 23.0, height: 23.0)))
-                            expect(QRCode(string: "hallo", scale: 2.0)!.image!.size).to(equal(CGSize(width: 23.0, height: 23.0)))
-                            expect(QRCode(string: "hallo", scale: 3.0)!.image!.size).to(equal(CGSize(width: 23.0, height: 23.0)))
+                            expect(QRCode(string: "hallo", scale: 1.0)!.unsafeImage!.size).to(equal(inherentSize))
+                            expect(QRCode(string: "hallo", scale: 2.0)!.unsafeImage!.size).to(equal(inherentSize))
+                            expect(QRCode(string: "hallo", scale: 3.0)!.unsafeImage!.size).to(equal(inherentSize))
                         }
                     }
 
                     it("can resize the image to desired dimensions, respecting scale") {
                         qrCode.size = size
                         qrCode.scale = 3
-                        expect(qrCode.image?.size).to(equal(size))
+                        expect(qrCode.unsafeImage!.size).to(equal(size))
                     }
 
-                    xit("raises when width too small for amount of data") {
-                        
+                    it("returns nil when width is too small for amount of data") {
+                        let desiredSize = CGSize(width: 10.0, height: 23.0)
+                        expect(QRCode(string: "hallo", size: desiredSize)?.unsafeImage).to(beNil())
                     }
-
-                    xit("raises when height too small for amount of data") {
-                        
+                    
+                    it("returns nil when height is too small for amount of data") {
+                        let desiredSize = CGSize(width: 23.0, height: 10.0)
+                        expect(QRCode(string: "hallo", size: desiredSize)?.unsafeImage).to(beNil())
                     }
                 }
             }

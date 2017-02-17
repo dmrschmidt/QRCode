@@ -7,7 +7,7 @@ before_install:
   - brew update
   - brew outdated carthage || brew upgrade carthage
 before_script:
-  - bundle
+  - bundle install
   - bundle exec rake ios:carthage:fetch
 script:
   - bundle exec rake ios:specs
