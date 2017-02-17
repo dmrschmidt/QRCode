@@ -8,6 +8,6 @@ before_install:
   - brew outdated carthage || brew upgrade carthage
 before_script:
   - bundle
-  - rake ios:carthage:fetch
+  - bundle exec rake ios:carthage:fetch
 script:
-  - rake ios:specs
+  - bundle exec rake ios:specs
