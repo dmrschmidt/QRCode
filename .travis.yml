@@ -6,9 +6,8 @@ xcode_sdk: iphonesimulator10.2
 before_install:
   - brew update
   - brew outdated carthage || brew upgrade carthage
-install:
-  - bundle
 before_script:
-  - carthage bootstrap
+  - bundle
+  - rake ios:carthage:fetch
 script:
   - rake ios:specs
