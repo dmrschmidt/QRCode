@@ -12,7 +12,7 @@ A simple QR code image generator to use in your apps, written in Swift 3.
 Simply add the following to your Cartfile and run `carthage update`:
 
 ```
-github "dmrschmidt/QRCode", ~> 0.4
+github "dmrschmidt/QRCode", ~> 0.5.0
 ```
 
 # Usage
