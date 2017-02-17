@@ -24,6 +24,7 @@ class ViewController: UIViewController {
                              color: UIColor(colorLiteralRed: 42/255.0, green: 50/255.0, blue: 75/255.0, alpha: 1),
                              backgroundColor: UIColor(colorLiteralRed: 225/255.0, green: 229/255.0, blue: 238/255.0, alpha: 1),
                              size: CGSize(width: 70, height: 70),
+                             scale: 2.0,
                              inputCorrection: .medium)
 
         qrCodeB.color = UIColor(colorLiteralRed: 51/255.0, green: 50/255.0, blue: 46/255.0, alpha: 1)

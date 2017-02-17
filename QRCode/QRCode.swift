@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 /**
  Generator for QRCode images.
@@ -6,7 +7,8 @@ import Foundation
 public struct QRCode {
     private static let defaultColor = UIColor.black
     private static let defaultBackgroundColor = UIColor.white
-    private static let defaultImageSize = CGSize(width: 200, height: 200)
+    private static let defaultImageSize: CGSize? = nil
+    private static let defaultScale = UIScreen.main.scale
     private static let defaultInputCorrection = InputCorrection.low
 
     /**
@@ -37,8 +39,12 @@ public struct QRCode {
     public var backgroundColor = defaultBackgroundColor
 
     /// Desired Output image size.
-    /// Defaults to 200 x 200 pt.
-    public var size: CGSize = defaultImageSize
+    /// Defaults to optimal size needed for given data.
+    public var size: CGSize?
+
+    /// Desired Output image size.
+    /// Defaults to optimal size needed for given data.
+    public var scale: CGFloat = defaultScale
 
     /// Amount of input error correction to apply. Default is `.Low`.
     public var inputCorrection = defaultInputCorrection
@@ -51,18 +57,21 @@ public struct QRCode {
      - parameter data: The `Data` represented in the QRCode.
      - parameter color: The `QRCode`'s image foreground (actual code) UIColor. Optional, defaults to black.
      - parameter backgroundColor: The `QRCode`'s image background UIColor. Optional, defaults to white.
-     - parameter size: The `QRCode`'s image size. Optional, defaults to 200 x 200 pt.
+     - parameter size: The `QRCode`'s image size. Optional, defaults to optimal size needed for given data.
+     - parameter scale: The `QRCode`'s image scale factor. Optional, defaults to main screen's scale.
      - parameter inputCorrection: The `QRCode`'s image input correction size. Optional, defaults to 200 x 200 pt.
      */
     public init(data: Data,
                 color: UIColor = defaultColor,
                 backgroundColor: UIColor = defaultBackgroundColor,
-                size: CGSize = defaultImageSize,
+                size: CGSize? = defaultImageSize,
+                scale: CGFloat = defaultScale,
                 inputCorrection correction: InputCorrection = defaultInputCorrection) {
         self.data = data
         self.color = color
         self.backgroundColor = backgroundColor
         self.size = size
+        self.scale = scale
         self.inputCorrection = correction
     }
 
@@ -72,16 +81,19 @@ public struct QRCode {
      - parameter string: The `String` represented in the QRCode.
      - parameter color: The `QRCode`'s image foreground (actual code) UIColor. Optional, defaults to black.
      - parameter backgroundColor: The `QRCode`'s image background UIColor. Optional, defaults to white.
-     - parameter size: The `QRCode`'s image size. Optional, defaults to 200 x 200 pt.
+     - parameter size: The `QRCode`'s image size. Optional, defaults to optimal size needed for given data.
+     - parameter scale: The `QRCode`'s image scale factor. Optional, defaults to main screen's scale.
      - parameter inputCorrection: The `QRCode`'s image input correction size. Optional, defaults to 200 x 200 pt.
      */
     public init?(string: String,
                  color: UIColor = defaultColor,
                  backgroundColor: UIColor = defaultBackgroundColor,
-                 size: CGSize = defaultImageSize,
+                 size: CGSize? = defaultImageSize,
+                 scale: CGFloat = defaultScale,
                  inputCorrection correction: InputCorrection = defaultInputCorrection) {
         guard let data = string.data(using: .isoLatin1) else { return nil }
-        self.init(data: data, color: color, backgroundColor: backgroundColor, size: size, inputCorrection: correction)
+        self.init(data: data, color: color, backgroundColor: backgroundColor,
+                  size: size, scale: scale, inputCorrection: correction)
     }
 
     /**
@@ -90,16 +102,19 @@ public struct QRCode {
      - parameter url: The `URL` represented in the QRCode.
      - parameter color: The `QRCode`'s image foreground (actual code) UIColor. Optional, defaults to black.
      - parameter backgroundColor: The `QRCode`'s image background UIColor. Optional, defaults to white.
-     - parameter size: The `QRCode`'s image size. Optional, defaults to 200 x 200 pt.
+     - parameter size: The `QRCode`'s image size. Optional, defaults to optimal size needed for given data.
+     - parameter scale: The `QRCode`'s image scale factor. Optional, defaults to main screen's scale.
      - parameter inputCorrection: The `QRCode`'s image input correction size. Optional, defaults to 200 x 200 pt.
      */
     public init?(url: URL,
                  color: UIColor = defaultColor,
                  backgroundColor: UIColor = defaultBackgroundColor,
-                 size: CGSize = defaultImageSize,
+                 size: CGSize? = defaultImageSize,
+                 scale: CGFloat = defaultScale,
                  inputCorrection correction: InputCorrection = defaultInputCorrection) {
         guard let data = url.absoluteString.data(using: .isoLatin1) else { return nil }
-        self.init(data: data, color: color, backgroundColor: backgroundColor, size: size, inputCorrection: correction)
+        self.init(data: data, color: color, backgroundColor: backgroundColor,
+                  size: size, scale: scale, inputCorrection: correction)
     }
 
     /// The QRCode's UIImage representation.
@@ -110,7 +125,7 @@ public struct QRCode {
         let context = CIContext(options: nil)
         let cgImage = context.createCGImage(ciImage, from: ciImage.extent)!
 
-        return UIImage(cgImage: cgImage)
+        return UIImage(cgImage: cgImage, scale: scale, orientation: .up)
     }
 }
 
@@ -120,8 +135,10 @@ extension QRCode {
     fileprivate var qrCodeScaledCiImage: CIImage? {
         guard let ciImage = qrCodeColoredCiImage else { return nil }
 
-        let scaleX = size.width / ciImage.extent.size.width
-        let scaleY = size.height / ciImage.extent.size.height
+        let resizeFactorX = (size == nil) ? 1 : size!.width / ciImage.extent.size.width
+        let resizeFactorY = (size == nil) ? 1 : size!.height / ciImage.extent.size.height
+        let scaleX: CGFloat = scale * resizeFactorX
+        let scaleY: CGFloat = scale * resizeFactorY
 
         return ciImage.applying(CGAffineTransform(scaleX: scaleX, y: scaleY))
     }

@@ -89,16 +89,44 @@ class QRCodeSpec: QuickSpec {
 
                 context("with valid data") {
                     beforeEach {
-                        qrCode = QRCode(string: "foo bar")
+                        qrCode = QRCode(string: "hallo")
                     }
 
                     it("returns a valid image") {
                         expect(qrCode.image).to(beAnInstanceOf(UIImage.self))
                     }
 
-                    it("resizes the image to desired dimensions") {
+                    it("creates image of optimal size for screen (1pt / datapoint)") {
+                        expect(qrCode.image!.scale).to(equal(UIScreen.main.scale))
+                        expect(qrCode.image!.size).to(equal(CGSize(width: 23.0, height: 23.0)))
+                    }
+
+                    context("scale") {
+                        it("properly adjusts UIImage scale") {
+                            expect(QRCode(string: "hallo", scale: 1.0)!.image!.scale).to(equal(1.0))
+                            expect(QRCode(string: "hallo", scale: 2.0)!.image!.scale).to(equal(2.0))
+                            expect(QRCode(string: "hallo", scale: 3.0)!.image!.scale).to(equal(3.0))
+                        }
+
+                        it("properly maintains UIImage target size") {
+                            expect(QRCode(string: "hallo", scale: 1.0)!.image!.size).to(equal(CGSize(width: 23.0, height: 23.0)))
+                            expect(QRCode(string: "hallo", scale: 2.0)!.image!.size).to(equal(CGSize(width: 23.0, height: 23.0)))
+                            expect(QRCode(string: "hallo", scale: 3.0)!.image!.size).to(equal(CGSize(width: 23.0, height: 23.0)))
+                        }
+                    }
+
+                    it("can resize the image to desired dimensions, respecting scale") {
                         qrCode.size = size
+                        qrCode.scale = 3
                         expect(qrCode.image?.size).to(equal(size))
+                    }
+
+                    xit("raises when width too small for amount of data") {
+                        
+                    }
+
+                    xit("raises when height too small for amount of data") {
+                        
                     }
                 }
             }
