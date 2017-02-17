@@ -2,7 +2,7 @@ language: objective-c
 osx_image: xcode8.2
 xcode_project: QRCode.xcodeproj
 xcode_scheme: QRCode
-xcode_sdk: iphonesimulator10.2
+xcode_sdk: iphonesimulator10.1
 before_install:
   - brew update
   - brew outdated carthage || brew upgrade carthage
