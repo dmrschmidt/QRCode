@@ -2,3 +2,4 @@ excluded:
   - Carthage
   - QRCodeTests
   - QRCodeExamples
+line_length: 130
