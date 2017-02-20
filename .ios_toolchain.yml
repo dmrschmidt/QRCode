@@ -9,6 +9,7 @@ app-targets:
 - QRCodeExamples
 test-targets:
 - QRCode
+- QRCodeTests
 ui-test-targets: []
 provisioning-path: "./provisioning"
 crashlytics-framework-path:

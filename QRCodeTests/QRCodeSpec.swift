@@ -145,11 +145,26 @@ class QRCodeSpec: QuickSpec {
                         let desiredSize = CGSize(width: 10.0, height: 23.0)
                         expect(QRCode(string: "hallo", size: desiredSize)?.unsafeImage).to(beNil())
                     }
-                    
+
                     it("returns nil when height is too small for amount of data") {
                         let desiredSize = CGSize(width: 23.0, height: 10.0)
                         expect(QRCode(string: "hallo", size: desiredSize)?.unsafeImage).to(beNil())
                     }
+                }
+            }
+
+            describe("Equatable") {
+                it("is equal when all attributes are equal") {
+                    expect(QRCode(string: "hallo")).to(equal(QRCode(data: "hallo".data(using: .isoLatin1)!)))
+                }
+
+                it("is not equal when any one attribute is not equal") {
+                    expect(QRCode(string: "hallo")).toNot(equal(QRCode(string: "hallo1")))
+                    expect(QRCode(string: "hallo", color: UIColor.red)).toNot(equal(QRCode(string: "hallo", color: UIColor.blue)))
+                    expect(QRCode(string: "hallo", backgroundColor: UIColor.green)).toNot(equal(QRCode(string: "hallo", backgroundColor: UIColor.brown)))
+                    expect(QRCode(string: "hallo", size: CGSize(width: 100, height: 100))).toNot(equal(QRCode(string: "hallo", size: CGSize(width: 100, height: 200))))
+                    expect(QRCode(string: "hallo", scale: 1)).toNot(equal(QRCode(string: "hallo", scale: 2)))
+                    expect(QRCode(string: "hallo", inputCorrection: .low)).toNot(equal(QRCode(string: "hallo", inputCorrection: .high)))
                 }
             }
         }

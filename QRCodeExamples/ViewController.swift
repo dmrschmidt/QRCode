@@ -5,7 +5,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var outerStackView: UIStackView!
     @IBOutlet var innerStackViews: [UIStackView]!
 
-    @IBOutlet weak var qrCodeAImageView: UIImageView!
+    @IBOutlet weak var qrCodeAView: QRCodeView!
     @IBOutlet weak var qrCodeBImageView: UIImageView!
     @IBOutlet weak var qrCodeCImageView: UIImageView!
     @IBOutlet weak var qrCodeDImageView: UIImageView!
@@ -40,7 +40,7 @@ class ViewController: UIViewController {
         qrCodeE.color = UIColor(colorLiteralRed: 254/255.0, green: 101/255.0, blue: 79/255.0, alpha: 1)
         qrCodeE.backgroundColor = UIColor(colorLiteralRed: 254/255.0, green: 217/255.0, blue: 155/255.0, alpha: 1)
 
-        qrCodeAImageView.image = try? qrCodeA.image()
+        qrCodeAView.qrCode = qrCodeA
         qrCodeBImageView.image = try? qrCodeB.image()
         qrCodeCImageView.image = try? qrCodeC.image()
         qrCodeDImageView.image = try? qrCodeD.image()
