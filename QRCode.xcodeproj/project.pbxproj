@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42DD66531E5B41C0000CDEC3 /* QRCodeImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DD66521E5B41C0000CDEC3 /* QRCodeImageGenerator.swift */; };
 		C322CC7B1E4E507D00B52247 /* QRCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C322CC711E4E507D00B52247 /* QRCode.framework */; };
 		C322CC821E4E507D00B52247 /* QRCode.h in Headers */ = {isa = PBXBuildFile; fileRef = C322CC741E4E507D00B52247 /* QRCode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C322CC8E1E4E629C00B52247 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C322CC8C1E4E629C00B52247 /* Nimble.framework */; };
@@ -48,6 +49,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		42DD66521E5B41C0000CDEC3 /* QRCodeImageGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeImageGenerator.swift; sourceTree = "<group>"; };
 		C322CC711E4E507D00B52247 /* QRCode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QRCode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C322CC741E4E507D00B52247 /* QRCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRCode.h; sourceTree = "<group>"; };
 		C322CC751E4E507D00B52247 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				C322CC741E4E507D00B52247 /* QRCode.h */,
 				C322CC751E4E507D00B52247 /* Info.plist */,
 				C322CC931E4E62C300B52247 /* QRCode.swift */,
+				42DD66521E5B41C0000CDEC3 /* QRCodeImageGenerator.swift */,
 			);
 			path = QRCode;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42DD66531E5B41C0000CDEC3 /* QRCodeImageGenerator.swift in Sources */,
 				C322CC941E4E62C300B52247 /* QRCode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
