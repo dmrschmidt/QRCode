@@ -11,6 +11,14 @@ public struct QRCode {
     public enum GenerationError: Error {
         /// Thrown when desired / requested image size is too small for the provided data.
         case desiredSizeTooSmall(desired: CGSize, actual: CGSize)
+        
+        /** 
+         Thrown when input data can generally not be represented as a QR code.
+         The current amount of bytes encoded is returned. You can possibly try to reduce
+         the level input correction to accomodate more data. A QR code can store a maximum
+         of 2,953 bytes (~= 3 kB).
+         */
+        case inputDataTooLarge(size: Int)
     }
 
     private static let defaultColor = UIColor.black

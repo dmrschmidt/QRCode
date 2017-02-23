@@ -102,6 +102,12 @@ class QRCodeSpec: QuickSpec {
                         try QRCode(string: "hallo", size: desiredSize)?.image()
                     }.to(throwError(QRCode.GenerationError.desiredSizeTooSmall(desired: desiredSize, actual: inherentSize)))
                 }
+                
+                it("throws when data ins generally too large") {
+                    expect {
+                        try QRCode(string: tooLongString())?.image()
+                    }.to(throwError(QRCode.GenerationError.inputDataTooLarge(size: 2954)))
+                }
             }
 
             describe("unsafeImage") {
@@ -150,6 +156,10 @@ class QRCodeSpec: QuickSpec {
                         let desiredSize = CGSize(width: 23.0, height: 10.0)
                         expect(QRCode(string: "hallo", size: desiredSize)?.unsafeImage).to(beNil())
                     }
+                    
+                    it("returns nil when data ins generally too large") {
+                        expect(QRCode(string: tooLongString())?.unsafeImage).to(beNil())
+                    }
                 }
             }
 
@@ -169,4 +179,10 @@ class QRCodeSpec: QuickSpec {
             }
         }
     }
+}
+
+func tooLongString() -> String {
+    let maximumQRCodeByteCount = 2953
+    let tooLongString = (0...maximumQRCodeByteCount).map { _ in "x" }.reduce("", { $0 + $1 })
+    return tooLongString
 }

@@ -47,8 +47,12 @@ struct DefaultQRCodeImageGenerator: QRCodeImageGenerator {
         qrCodeFilter.setDefaults()
         qrCodeFilter.setValue(code.data, forKey: "inputMessage")
         qrCodeFilter.setValue(code.inputCorrection.rawValue, forKey: "inputCorrectionLevel")
+        
+        guard let outputImage = qrCodeFilter.outputImage else {
+            throw QRCode.GenerationError.inputDataTooLarge(size: code.data.count)
+        }
 
-        return qrCodeFilter.outputImage!
+        return outputImage
     }
 
     private func desiredSizeIsSufficient(for code: QRCode, with image: CIImage) -> Bool {
