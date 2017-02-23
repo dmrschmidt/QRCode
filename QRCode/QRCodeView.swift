@@ -17,6 +17,7 @@ import Foundation
         didSet {
             DispatchQueue.main.async { [unowned self] in
                 self.imageView.contentMode = self.contentMode
+                self.setNeedsLayout()
             }
         }
     }
@@ -48,7 +49,7 @@ import Foundation
     }
 
     public override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return contentModeAwareSize(for: size)
+        return contentModeAwareSize(for: size) ?? size
     }
 
     override public func layoutSubviews() {
@@ -87,8 +88,18 @@ extension QRCodeView {
                                                       views: ["imageView": imageView]))
     }
 
-    fileprivate func contentModeAwareSize(for size: CGSize) -> CGSize {
-        let smallestSide = min(size.width, size.height)
-        return CGSize(width: smallestSide, height: smallestSide)
+    fileprivate func contentModeAwareSize(for size: CGSize) -> CGSize? {
+        switch contentMode {
+        case .scaleAspectFit:
+            let smallestSide = min(size.width, size.height)
+            return CGSize(width: smallestSide, height: smallestSide)
+        case .scaleAspectFill:
+            let largestSide = max(size.width, size.height)
+            return CGSize(width: largestSide, height: largestSide)
+        case .scaleToFill:
+            return size
+        default:
+            return nil
+        }
     }
 }

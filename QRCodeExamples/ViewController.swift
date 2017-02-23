@@ -10,7 +10,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var qrCodeCImageView: UIImageView!
     @IBOutlet weak var qrCodeDImageView: UIImageView!
     @IBOutlet weak var qrCodeEImageView: UIImageView!
-    @IBOutlet weak var qrCodeFImageView: UIImageView!
+    @IBOutlet weak var qrCodeFView: QRCodeView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +45,7 @@ class ViewController: UIViewController {
         qrCodeCImageView.image = try? qrCodeC.image()
         qrCodeDImageView.image = try? qrCodeD.image()
         qrCodeEImageView.image = try? qrCodeE.image()
-        qrCodeFImageView.image = try? qrCodeF.image()
+        qrCodeFView.qrCode = qrCodeF
     }
 
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
