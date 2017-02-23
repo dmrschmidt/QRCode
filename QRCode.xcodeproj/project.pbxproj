@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		42002D7A1E5741650015AFB9 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42002D791E5741650015AFB9 /* QRCodeView.swift */; };
 		42002D7C1E5744920015AFB9 /* QRCodeViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42002D7B1E5744920015AFB9 /* QRCodeViewSpec.swift */; };
+		4279EA1C1E5ED56B00796F96 /* QRCode.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C322CC711E4E507D00B52247 /* QRCode.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		42DD66531E5B41C0000CDEC3 /* QRCodeImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DD66521E5B41C0000CDEC3 /* QRCodeImageGenerator.swift */; };
 		C322CC7B1E4E507D00B52247 /* QRCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C322CC711E4E507D00B52247 /* QRCode.framework */; };
 		C322CC821E4E507D00B52247 /* QRCode.h in Headers */ = {isa = PBXBuildFile; fileRef = C322CC741E4E507D00B52247 /* QRCode.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -37,6 +38,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		4279EA1B1E5ED55800796F96 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4279EA1C1E5ED56B00796F96 /* QRCode.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C322CC901E4E62A600B52247 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -224,6 +235,7 @@
 				C3FCC2731E54C5500057B1A6 /* Sources */,
 				C3FCC2741E54C5500057B1A6 /* Frameworks */,
 				C3FCC2751E54C5500057B1A6 /* Resources */,
+				4279EA1B1E5ED55800796F96 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -541,7 +553,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = QRCodeExamples/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.dmrschmidt.QRCodeExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -553,7 +568,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = QRCodeExamples/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.dmrschmidt.QRCodeExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
