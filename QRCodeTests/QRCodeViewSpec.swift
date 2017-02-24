@@ -207,6 +207,50 @@ class QRCodeViewSpec: QuickSpec {
                     }
                 }
             }
+            
+            describe("sizing behavior") {
+                let tooSmallSize = CGSize(width: 10, height: 10)
+                
+                beforeEach {
+                    qrCodeView.qrCode = QRCode(imageGenerator: DefaultQRCodeImageGenerator(),
+                                               data: "hello".data(using: .isoLatin1)!)
+                    waitUntil { done in
+                        widthConstraint.constant = tooSmallSize.width
+                        heightConstraint.constant = tooSmallSize.height
+                        viewController.view.setNeedsLayout()
+                        DispatchQueue.main.async(execute: viewController.view.layoutIfNeeded)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: done)
+                    }
+                }
+                
+                context(".alwaysRender") {
+                    beforeEach {
+                        waitUntil { done in
+                            qrCodeView.sizingBehavior = .alwaysRender
+                            DispatchQueue.main.async(execute: qrCodeView.layoutIfNeeded)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: done)
+                        }
+                    }
+                    
+                    it("renders the image even when target size is too small") {
+                        expect(imageView(inside: qrCodeView).image).toEventuallyNot(beNil())
+                    }
+                }
+                
+                context(".hideWhenToSmall") {
+                    beforeEach {
+                        waitUntil { done in
+                            qrCodeView.sizingBehavior = .hideWhenTooSmall
+                            DispatchQueue.main.async(execute: qrCodeView.layoutIfNeeded)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: done)
+                        }
+                    }
+                    
+                    it("does NOT render the image when target size is too small") {
+                        expect(imageView(inside: qrCodeView).image).toEventually(beNil())
+                    }
+                }
+            }
         }
     }
 }
