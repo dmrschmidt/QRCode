@@ -47,26 +47,26 @@ public struct QRCode {
     }
 
     /// QRCode data to be encoded.
-    public var data: Data { didSet { if data != oldValue { imageCache.clear() } } }
+    public var data: Data { didSet { updateCache(oldValue, newValue: data) } }
 
     /// Output image foreground (actual code) color.
     /// Defaults to black.
-    public var color = defaultColor { didSet { if color != oldValue { imageCache.clear() } } }
+    public var color = defaultColor { didSet { updateCache(oldValue, newValue: color) } }
 
     /// Output image background color.
     /// Defaults to white.
-    public var backgroundColor = defaultBackgroundColor { didSet { if backgroundColor != oldValue { imageCache.clear() } } }
+    public var backgroundColor = defaultBackgroundColor { didSet { updateCache(oldValue, newValue: backgroundColor) } }
 
     /// Desired Output image size.
     /// Defaults to optimal size needed for given data.
-    public var size: CGSize? { didSet { if size != oldValue { imageCache.clear() } } }
+    public var size: CGSize? { didSet { updateCache(oldValue, newValue: size) } }
 
     /// Desired Output image size.
     /// Defaults to optimal size needed for given data.
-    public var scale: CGFloat = defaultScale { didSet { if scale != oldValue { imageCache.clear() } } }
+    public var scale: CGFloat = defaultScale { didSet { updateCache(oldValue, newValue: scale) } }
 
     /// Amount of input error correction to apply. Default is `.Low`.
-    public var inputCorrection = defaultInputCorrection { didSet { if inputCorrection != oldValue { imageCache.clear() } } }
+    public var inputCorrection = defaultInputCorrection { didSet { updateCache(oldValue, newValue: inputCorrection) } }
 
 // MARK: - Initializers
 
@@ -184,6 +184,14 @@ extension QRCode: Equatable {
 }
 
 // MARK: - Caching
+
+fileprivate extension QRCode {
+    fileprivate func updateCache<T: Equatable>(_ oldValue: T?, newValue: T?) {
+        if newValue != oldValue {
+            imageCache.clear()
+        }
+    }
+}
 
 private class ImageCache {
     var cachedImage: UIImage?
