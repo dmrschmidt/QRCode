@@ -11,8 +11,8 @@ public struct QRCode {
     public enum GenerationError: Error {
         /// Thrown when desired / requested image size is too small for the provided data.
         case desiredSizeTooSmall(desired: CGSize, actual: CGSize)
-        
-        /** 
+
+        /**
          Thrown when input data can generally not be represented as a QR code.
          The current amount of bytes encoded is returned. You can possibly try to reduce
          the level input correction to accomodate more data. A QR code can store a maximum
@@ -28,6 +28,7 @@ public struct QRCode {
     private static let defaultInputCorrection = InputCorrection.low
 
     private let imageGenerator: QRCodeImageGenerator!
+    fileprivate let imageCache = ImageCache()
 
     /**
      Amount of input error correction data to append to the final QR code.
@@ -46,26 +47,26 @@ public struct QRCode {
     }
 
     /// QRCode data to be encoded.
-    public var data: Data
+    public var data: Data { didSet { if data != oldValue { imageCache.clear() } } }
 
     /// Output image foreground (actual code) color.
     /// Defaults to black.
-    public var color = defaultColor
+    public var color = defaultColor { didSet { if color != oldValue { imageCache.clear() } } }
 
     /// Output image background color.
     /// Defaults to white.
-    public var backgroundColor = defaultBackgroundColor
+    public var backgroundColor = defaultBackgroundColor { didSet { if backgroundColor != oldValue { imageCache.clear() } } }
 
     /// Desired Output image size.
     /// Defaults to optimal size needed for given data.
-    public var size: CGSize?
+    public var size: CGSize? { didSet { if size != oldValue { imageCache.clear() } } }
 
     /// Desired Output image size.
     /// Defaults to optimal size needed for given data.
-    public var scale: CGFloat = defaultScale
+    public var scale: CGFloat = defaultScale { didSet { if scale != oldValue { imageCache.clear() } } }
 
     /// Amount of input error correction to apply. Default is `.Low`.
-    public var inputCorrection = defaultInputCorrection
+    public var inputCorrection = defaultInputCorrection { didSet { if inputCorrection != oldValue { imageCache.clear() } } }
 
 // MARK: - Initializers
 
@@ -155,7 +156,9 @@ public struct QRCode {
      - throws: GenerationError if requested image size is too small to encode the data.
      */
     public func image() throws -> UIImage {
-        return try imageGenerator.image(for: self)
+        if let image = imageCache.cachedImage { return image }
+        imageCache.cachedImage = try imageGenerator.image(for: self)
+        return imageCache.cachedImage!
     }
 
     /**
@@ -177,5 +180,15 @@ extension QRCode: Equatable {
             lhs.size == rhs.size &&
             lhs.scale == rhs.scale &&
             lhs.inputCorrection == rhs.inputCorrection
+    }
+}
+
+// MARK: - Caching
+
+private class ImageCache {
+    var cachedImage: UIImage?
+
+    fileprivate func clear() {
+        cachedImage = nil
     }
 }

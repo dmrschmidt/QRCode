@@ -102,7 +102,7 @@ class QRCodeSpec: QuickSpec {
                         try QRCode(string: "hallo", size: desiredSize)?.image()
                     }.to(throwError(QRCode.GenerationError.desiredSizeTooSmall(desired: desiredSize, actual: inherentSize)))
                 }
-                
+
                 it("throws when data ins generally too large") {
                     expect {
                         try QRCode(string: tooLongString())?.image()
@@ -156,7 +156,7 @@ class QRCodeSpec: QuickSpec {
                         let desiredSize = CGSize(width: 23.0, height: 10.0)
                         expect(QRCode(string: "hallo", size: desiredSize)?.unsafeImage).to(beNil())
                     }
-                    
+
                     it("returns nil when data ins generally too large") {
                         expect(QRCode(string: tooLongString())?.unsafeImage).to(beNil())
                     }
@@ -175,6 +175,73 @@ class QRCodeSpec: QuickSpec {
                     expect(QRCode(string: "hallo", size: CGSize(width: 100, height: 100))).toNot(equal(QRCode(string: "hallo", size: CGSize(width: 100, height: 200))))
                     expect(QRCode(string: "hallo", scale: 1)).toNot(equal(QRCode(string: "hallo", scale: 2)))
                     expect(QRCode(string: "hallo", inputCorrection: .low)).toNot(equal(QRCode(string: "hallo", inputCorrection: .high)))
+                }
+            }
+
+            describe("caching") {
+                it("returns a cached image on subsequent calls") {
+                    let qrCode = QRCode(string: "hallo")!
+                    expect(qrCode.unsafeImage).to(equal(qrCode.unsafeImage))
+                }
+
+                it("flushes the cache once data changes") {
+                    var qrCode = QRCode(string: "hallo")!
+                    let firstImage = qrCode.unsafeImage
+                    qrCode.data = "hallo".data(using: .isoLatin1)!
+                    expect(firstImage).to(equal(qrCode.unsafeImage))
+                    qrCode.data = "different".data(using: .isoLatin1)!
+
+                    try? expect(firstImage).toNot(equal(qrCode.image()))
+                }
+
+                it("flushes the cache once color changes") {
+                    var qrCode = QRCode(string: "hallo")!
+                    let firstImage = qrCode.unsafeImage
+                    qrCode.color = UIColor.black
+                    expect(firstImage).to(equal(qrCode.unsafeImage))
+                    qrCode.color = UIColor.red
+
+                    try? expect(firstImage).toNot(equal(qrCode.image()))
+                }
+
+                it("flushes the cache once backgroundColor changes") {
+                    var qrCode = QRCode(string: "hallo")!
+                    let firstImage = qrCode.unsafeImage
+                    qrCode.backgroundColor = UIColor.white
+                    expect(firstImage).to(equal(qrCode.unsafeImage))
+                    qrCode.backgroundColor = UIColor.red
+
+                    try? expect(firstImage).toNot(equal(qrCode.image()))
+                }
+
+                it("flushes the cache once size changes") {
+                    var qrCode = QRCode(string: "hallo")!
+                    let firstImage = qrCode.unsafeImage
+                    qrCode.size = nil
+                    expect(firstImage).to(equal(qrCode.unsafeImage))
+                    qrCode.size = CGSize(width: 100, height: 100)
+
+                    try? expect(firstImage).toNot(equal(qrCode.image()))
+                }
+
+                it("flushes the cache once scale changes") {
+                    var qrCode = QRCode(string: "hallo")!
+                    let firstImage = qrCode.unsafeImage
+                    qrCode.scale = UIScreen.main.scale
+                    expect(firstImage).to(equal(qrCode.unsafeImage))
+                    qrCode.scale = 42
+
+                    try? expect(firstImage).toNot(equal(qrCode.image()))
+                }
+
+                it("flushes the cache once inputCorrection changes") {
+                    var qrCode = QRCode(string: "hallo")!
+                    let firstImage = qrCode.unsafeImage
+                    qrCode.inputCorrection = .low
+                    expect(firstImage).to(equal(qrCode.unsafeImage))
+                    qrCode.inputCorrection = .medium
+
+                    try? expect(firstImage).toNot(equal(qrCode.image()))
                 }
             }
         }
