@@ -188,6 +188,25 @@ class QRCodeViewSpec: QuickSpec {
                     }
                 }
             }
+
+            describe("intrinsicContentSize") {
+                context("with a set QRCode") {
+                    it("returns the actual size of the generated image") {
+                        expect(qrCodeView.intrinsicContentSize).to(equal(qrCode.unsafeImage?.size))
+                    }
+                }
+
+                context("without a set QRCode") {
+                    beforeEach {
+                        qrCodeView.qrCode = nil
+                    }
+
+                    it("returns invalid size (size based on UIiewNoInstrinsicMetric)") {
+                        let noIntrinsicSize = CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric)
+                        expect(qrCodeView.intrinsicContentSize).to(equal(noIntrinsicSize))
+                    }
+                }
+            }
         }
     }
 }

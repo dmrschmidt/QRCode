@@ -48,6 +48,10 @@ import Foundation
         return true
     }
 
+    public override var intrinsicContentSize: CGSize {
+        return qrCode?.unsafeImage?.size ?? super.intrinsicContentSize
+    }
+
     public override func sizeThatFits(_ size: CGSize) -> CGSize {
         return contentModeAwareSize(for: size) ?? size
     }
