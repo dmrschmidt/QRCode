@@ -1,31 +1,42 @@
 import Foundation
 
 /**
- 
+ `QRCodeView` can display `QRCode` images and redraw them appropriately when the view is being resized (e.g. on device
+ rotation, to ensure pixel-perfect display of the QR code.
  */
 public class QRCodeView: UIView {
     /**
+     Specifies the view's behavior when the frame becomes smaller than the QR code would require to be displayed without
+     losing any information.
+
+     - **alwaysRender**: Render the QR code image always, even if it doesn't fit the view / if data would be lost as not all
+     pixels can be fitted into the view.
+     - **hideWhenTooSmall**: Do *not* display an image when frame size becomes too small. This ensures that your view never
+     displays invalid QR code images.
      */
-    public enum SizingBehavior {
+    public enum SizingBehavior: Int {
+        /// Render the QR code image always, even if it doesn't fit the view / if data would be lost as not all
+        /// pixels can be fitted into the view.
         case alwaysRender
+
+        /// Do *not* display an image when frame size becomes too small. This ensures that your view never
+        /// displays invalid QR code images.
         case hideWhenTooSmall
     }
 
-    /**
-     */
+    /// The QRCode to be displayed in the view.
     public var qrCode: QRCode? {
         didSet {
             guard qrCode != oldValue else { return }
             DispatchQueue.main.async(execute: setNeedsLayout)
         }
     }
-    
-    /**
-     */
+
+    /// The SizingBehavior for this view. Defaults to `.hideWhenTooSmall`.
     public var sizingBehavior: SizingBehavior {
         didSet { DispatchQueue.main.async(execute: setNeedsLayout) }
     }
-    
+
     public override var contentMode: UIViewContentMode {
         didSet {
             DispatchQueue.main.async { [unowned self] in
@@ -34,17 +45,17 @@ public class QRCodeView: UIView {
             }
         }
     }
-    
+
     private var cachedImage: UIImage?
     private let operationQueue: OperationQueue
     fileprivate let imageView: UIImageView!
-    
+
     private static let defaultSizingBehavior: SizingBehavior = .hideWhenTooSmall
     private static let defaultQoS: QualityOfService = .background
     private static let defaultConcurrentOperationCount = 3
 
-    /**
-     */
+// MARK: - Initialization
+
     override public init(frame: CGRect) {
         imageView = UIImageView(frame: frame)
         operationQueue = QRCodeView.defaultOperationQueue()
@@ -55,8 +66,6 @@ public class QRCodeView: UIView {
         setupViews()
     }
 
-    /**
-     */
     required public init?(coder aDecoder: NSCoder) {
         imageView = UIImageView(coder: aDecoder)
         operationQueue = QRCodeView.defaultOperationQueue()
@@ -66,13 +75,15 @@ public class QRCodeView: UIView {
 
         setupViews()
     }
-    
+
     private static func defaultOperationQueue() -> OperationQueue {
         let operationQueue = OperationQueue()
         operationQueue.qualityOfService = QRCodeView.defaultQoS
         operationQueue.maxConcurrentOperationCount = QRCodeView.defaultConcurrentOperationCount
         return operationQueue
     }
+
+// MARK: - View Lifecycle
 
     override public class var requiresConstraintBasedLayout: Bool {
         return true
@@ -82,23 +93,25 @@ public class QRCodeView: UIView {
         return qrCode?.unsafeImage?.size ?? super.intrinsicContentSize
     }
 
-    public override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return contentModeAwareSize(for: size) ?? size
-    }
-
     override public func layoutSubviews() {
+        print("layoutSubviews for \(qrCode) in \(self)")
         super.layoutSubviews()
         guard qrCode != nil else { return }
 
         qrCode!.size = contentModeAwareSize(for: frame.size)
+        print("sizing: my size is now: \(qrCode!.size) from \(frame.size) for \(qrCode)")
+
         operationQueue.cancelAllOperations()
         let blockOperation = BlockOperation()
         blockOperation.addExecutionBlock { [weak self] in
             guard let strongSelf = self else { return }
+            print("getting the image for \(strongSelf.qrCode)")
             let image = strongSelf.imageForCurrentSizingBehavior()
+            print("got the image \(image) for \(strongSelf.qrCode)")
             DispatchQueue.main.async { [weak blockOperation] in
-                guard let operation = blockOperation, !operation.isCancelled else { return }
+                guard let operation = blockOperation, !operation.isCancelled else { print("cancelled, skipping"); return }
                 strongSelf.imageView.image = image
+                print("set the new image \(image) on internal view: \(strongSelf.imageView) to \(strongSelf.imageView.image)")
             }
         }
         operationQueue.addOperation(blockOperation)
@@ -117,11 +130,16 @@ extension QRCodeView {
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[imageView]|", options: [], metrics: nil,
                                                       views: ["imageView": imageView]))
     }
-    
+
     fileprivate func imageForCurrentSizingBehavior() -> UIImage? {
         guard let code = qrCode else { return nil }
 
-        var image: UIImage?
+        let isSquare = self.bounds.size.height == self.bounds.size.width
+        if sizingBehavior == .hideWhenTooSmall && contentMode == .scaleAspectFill && !isSquare {
+            return nil
+        }
+
+        var image: UIImage? = nil
         do {
             image = try code.image()
         } catch QRCode.GenerationError.desiredSizeTooSmall(desired: _, actual: let minimumSize) {

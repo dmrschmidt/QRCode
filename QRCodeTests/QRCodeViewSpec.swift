@@ -135,6 +135,7 @@ class QRCodeViewSpec: QuickSpec {
                     beforeEach {
                         waitUntil { done in
                             qrCodeView.contentMode = .scaleAspectFill
+                            qrCodeView.sizingBehavior = .alwaysRender
                             DispatchQueue.main.async(execute: qrCodeView.layoutIfNeeded)
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: done)
                         }
@@ -207,10 +208,10 @@ class QRCodeViewSpec: QuickSpec {
                     }
                 }
             }
-            
+
             describe("sizing behavior") {
                 let tooSmallSize = CGSize(width: 10, height: 10)
-                
+
                 beforeEach {
                     qrCodeView.qrCode = QRCode(imageGenerator: DefaultQRCodeImageGenerator(),
                                                data: "hello".data(using: .isoLatin1)!)
@@ -222,7 +223,7 @@ class QRCodeViewSpec: QuickSpec {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: done)
                     }
                 }
-                
+
                 context(".alwaysRender") {
                     beforeEach {
                         waitUntil { done in
@@ -231,23 +232,44 @@ class QRCodeViewSpec: QuickSpec {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: done)
                         }
                     }
-                    
+
                     it("renders the image even when target size is too small") {
                         expect(imageView(inside: qrCodeView).image).toEventuallyNot(beNil())
                     }
                 }
-                
+
                 context(".hideWhenToSmall") {
-                    beforeEach {
-                        waitUntil { done in
-                            qrCodeView.sizingBehavior = .hideWhenTooSmall
-                            DispatchQueue.main.async(execute: qrCodeView.layoutIfNeeded)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: done)
+                    context("when size is generally too small") {
+                        beforeEach {
+                            waitUntil { done in
+                                qrCodeView.sizingBehavior = .hideWhenTooSmall
+                                DispatchQueue.main.async(execute: qrCodeView.layoutIfNeeded)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: done)
+                            }
+                        }
+
+                        it("does NOT render the image") {
+                            expect(imageView(inside: qrCodeView).image).toEventually(beNil())
                         }
                     }
-                    
-                    it("does NOT render the image when target size is too small") {
-                        expect(imageView(inside: qrCodeView).image).toEventually(beNil())
+
+                    context("when .scaleAspectFill is set with a non-square view") {
+                        beforeEach {
+                            widthConstraint.constant = 120
+                            heightConstraint.constant = 130
+                            viewController.view.setNeedsLayout()
+
+                            waitUntil { done in
+                                qrCodeView.contentMode = .scaleAspectFill
+                                qrCodeView.sizingBehavior = .hideWhenTooSmall
+                                DispatchQueue.main.async(execute: qrCodeView.layoutIfNeeded)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: done)
+                            }
+                        }
+
+                        it("does not render the image") {
+                            expect(imageView(inside: qrCodeView).image).toEventually(beNil())
+                        }
                     }
                 }
             }
