@@ -5,6 +5,14 @@
 
 A simple QR code image generator to use in your apps, written in Swift 3.
 
+# More related iOS Controls
+
+You may also find the following iOS controls written in Swift interesting:
+
+* [SwiftColorWheel](https://github.com/dmrschmidt/SwiftColorWheel) - a delightful color picker
+* [DSWaveformImage](https://github.com/dmrschmidt/DSWaveformImage) - draw an audio file's waveform image
+
+
 # Installation
 
 ## Carthage
