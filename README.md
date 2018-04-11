@@ -85,3 +85,13 @@ qrCode.inputCorrection = .quartile // amount of error correction information add
 ```
 
 ![Screenshot](https://github.com/dmrschmidt/QRCode/blob/master/screenshot.png)
+
+## See it live in action
+
+SoundCard lets you send postcards with audio messages.
+
+QRCode is used to place a scannable code, which links to the audio message, on postcards sent by [SoundCard](https://www.soundcard.io).
+
+Check it out on the [App Store](http://bit.ly/soundcardio).
+
+<img src="https://github.com/dmrschmidt/QRCode/blob/master/screenshot2.png" alt="Screenshot">
