@@ -2,7 +2,7 @@
 project-file-path: "./QRCode.xcodeproj"
 default-scheme: QRCode
 default-sdk: iphoneos12.2
-default-32bit-test-device: "'iOS Simulator,OS=12.,name=iPhone 5'"
+default-32bit-test-device: "'iOS Simulator,OS=12.2,name=iPhone SE'"
 default-64bit-test-device: "'iOS Simulator,OS=12.2,name=iPhone 7'"
 app-targets:
 - QRCode
