@@ -6,6 +6,7 @@ xcode_sdk: iphonesimulator12.2
 before_install:
   - brew update
   - brew outdated carthage || brew upgrade carthage
+  - gem install bundler -v 2.0.1
 before_script:
   - bundle install
   - bundle exec rake ios:carthage:fetch
