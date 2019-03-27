@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/dmrschmidt/QRCode.svg?branch=master)](https://travis-ci.org/dmrschmidt/QRCode/)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-A simple QR code image generator to use in your apps, written in Swift 3.
+A simple QR code image generator to use in your apps, written in Swift 5.
 
 # More related iOS Controls
 
@@ -20,7 +20,7 @@ You may also find the following iOS controls written in Swift interesting:
 Simply add the following to your Cartfile and run `carthage update`:
 
 ```
-github "dmrschmidt/QRCode", ~> 0.5.0
+github "dmrschmidt/QRCode", ~> 0.6.0
 ```
 
 # Usage
