@@ -26,7 +26,7 @@ struct DefaultQRCodeImageGenerator: QRCodeImageGenerator {
         let scaleX: CGFloat = code.scale * resizeFactorX
         let scaleY: CGFloat = code.scale * resizeFactorY
 
-        return ciImage.applying(CGAffineTransform(scaleX: scaleX, y: scaleY))
+        return ciImage.transformed(by: CGAffineTransform(scaleX: scaleX, y: scaleY))
     }
 
     private func qrCodeColoredCiImage(for code: QRCode) throws -> CIImage {

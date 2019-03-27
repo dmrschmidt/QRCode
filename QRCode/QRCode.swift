@@ -21,11 +21,11 @@ public struct QRCode {
         case inputDataTooLarge(size: Int)
     }
 
-    private static let defaultColor = UIColor.black
-    private static let defaultBackgroundColor = UIColor.white
-    private static let defaultImageSize: CGSize? = nil
-    private static let defaultScale = UIScreen.main.scale
-    private static let defaultInputCorrection = InputCorrection.low
+    public static let defaultColor = UIColor.black
+    public static let defaultBackgroundColor = UIColor.white
+    public static let defaultImageSize: CGSize? = nil
+    public static let defaultScale = UIScreen.main.scale
+    public static let defaultInputCorrection = InputCorrection.low
 
     private let imageGenerator: QRCodeImageGenerator!
     fileprivate let imageCache = ImageCache()
@@ -186,7 +186,7 @@ extension QRCode: Equatable {
 // MARK: - Caching
 
 fileprivate extension QRCode {
-    fileprivate func updateCache<T: Equatable>(_ oldValue: T?, newValue: T?) {
+    func updateCache<T: Equatable>(_ oldValue: T?, newValue: T?) {
         if newValue != oldValue {
             imageCache.clear()
         }

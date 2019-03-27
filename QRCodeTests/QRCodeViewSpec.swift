@@ -27,8 +27,8 @@ class QRCodeViewSpec: QuickSpec {
                 viewController.view.addSubview(qrCodeView)
                 viewController.view.translatesAutoresizingMaskIntoConstraints = false
 
-                widthConstraint = NSLayoutConstraint(item: viewController.view, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: screenSize.width)
-                heightConstraint = NSLayoutConstraint(item: viewController.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: screenSize.height)
+                widthConstraint = NSLayoutConstraint(item: viewController.view!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: screenSize.width)
+                heightConstraint = NSLayoutConstraint(item: viewController.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: screenSize.height)
                 viewController.view.addConstraint(widthConstraint)
                 viewController.view.addConstraint(heightConstraint)
 
@@ -203,7 +203,7 @@ class QRCodeViewSpec: QuickSpec {
                     }
 
                     it("returns invalid size (size based on UIiewNoInstrinsicMetric)") {
-                        let noIntrinsicSize = CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric)
+                        let noIntrinsicSize = CGSize(width: UIView.noIntrinsicMetric, height: UIView.noIntrinsicMetric)
                         expect(qrCodeView.intrinsicContentSize).to(equal(noIntrinsicSize))
                     }
                 }
