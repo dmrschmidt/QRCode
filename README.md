@@ -16,7 +16,7 @@ You may also find the following iOS controls written in Swift interesting:
 # Installation
 
 * use carthage: `github "dmrschmidt/QRCode", ~> 0.6.0`
-* use cocoapods: `pod 'QRCode', '~> 0.6.0'`
+* use cocoapods: `pod 'SimpleQRCode', '~> 0.6.0'`
 * manually: checkout the repo and build the QRCode.framework, then add to your project
 * or simply add the QRCode folder directly into your project.
 

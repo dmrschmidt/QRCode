@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name          = "QRCode"
+  s.name          = "SimpleQRCode"
   s.version       = "0.6.2"
   s.swift_version = "5.1"
   s.summary       = "A simple QR code image generator to use in your apps, written in Swift 5."
