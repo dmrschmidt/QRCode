@@ -80,7 +80,7 @@ qrCode.scale = 1.0 // image scaling factor
 qrCode.inputCorrection = .quartile // amount of error correction information added
 ```
 
-![Screenshot](https://github.com/dmrschmidt/QRCode/blob/master/screenshot.png)
+![Screenshot](https://github.com/dmrschmidt/QRCode/blob/main/screenshot.png)
 
 ## See it live in action
 
@@ -90,4 +90,4 @@ QRCode is used to place a scannable code, which links to the audio message, on p
 
 Check it out on the [App Store](http://bit.ly/soundcardio).
 
-<img src="https://github.com/dmrschmidt/QRCode/blob/master/screenshot2.png" alt="Screenshot">
+<img src="https://github.com/dmrschmidt/QRCode/blob/main/screenshot2.png" alt="Screenshot">
