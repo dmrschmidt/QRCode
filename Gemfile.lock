@@ -10,7 +10,7 @@ GEM
       xcodeproj (~> 1.4)
       xcpretty (~> 0.2)
     nanaimo (0.2.6)
-    rake (12.3.2)
+    rake (12.3.3)
     rouge (2.0.7)
     xcodeproj (1.8.1)
       CFPropertyList (>= 2.3.3, < 4.0)
