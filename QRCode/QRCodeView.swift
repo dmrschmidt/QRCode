@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 /**
  `QRCodeView` can display `QRCode` images and redraw them appropriately when the view is being resized (e.g. on device

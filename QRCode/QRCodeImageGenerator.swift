@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 protocol QRCodeImageGenerator {
     func image(for code: QRCode) throws -> UIImage
