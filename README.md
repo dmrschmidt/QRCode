@@ -93,9 +93,9 @@ qrCode.inputCorrection = .quartile // amount of error correction information add
 
 ## See it live in action
 
-[SoundCard](https://www.soundcard.io) lets you send real, physical postcards with audio messages. Right from your iOS device.
+[SoundCard - postcards with sound](https://www.soundcard.io) lets you send real, physical postcards with audio messages. Right from your iOS device.
 
-QRCode is used to place a scannable code, which links to the audio message, on postcards sent by [SoundCard](https://www.soundcard.io).
+QRCode is used to place a scannable code, which links to the audio message, on postcards sent by [SoundCard - postcards with audio](https://www.soundcard.io).
 
 &nbsp;
 
