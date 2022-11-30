@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,39 +21,43 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UlQ-gJ-ODj">
-                                <rect key="frame" x="16" y="28" width="343" height="631"/>
+                                <rect key="frame" x="16" y="8" width="343" height="651"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="2yq-uT-eYc">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="203.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="210.5"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="wLA-8s-JS2" customClass="QRCodeView" customModule="QRCode">
-                                                <rect key="frame" x="0.0" y="0.0" width="171.5" height="203.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="171.5" height="210.5"/>
                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
                                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7CF-l4-wDv">
-                                                <rect key="frame" x="171.5" y="0.0" width="171.5" height="203.5"/>
+                                                <rect key="frame" x="171.5" y="0.0" width="171.5" height="210.5"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="qVI-CS-1uI">
-                                        <rect key="frame" x="0.0" y="213.5" width="343" height="204"/>
+                                        <rect key="frame" x="0.0" y="220.5" width="343" height="210"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="y9g-Mz-kOP">
-                                                <rect key="frame" x="0.0" y="0.0" width="171.5" height="204"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="171.5" height="210"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dlb-tS-zFD">
-                                                <rect key="frame" x="171.5" y="0.0" width="171.5" height="204"/>
+                                                <rect key="frame" x="171.5" y="0.0" width="171.5" height="210"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="TXC-jK-UCs">
-                                        <rect key="frame" x="0.0" y="427.5" width="343" height="203.5"/>
+                                        <rect key="frame" x="0.0" y="440.5" width="343" height="210.5"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9BE-ef-sif">
-                                                <rect key="frame" x="0.0" y="0.0" width="171.5" height="203.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="114.5" height="210.5"/>
                                             </imageView>
                                             <view clipsSubviews="YES" contentMode="TopLeft" translatesAutoresizingMaskIntoConstraints="NO" id="ys6-BT-KIQ" customClass="QRCodeView" customModule="QRCode">
-                                                <rect key="frame" x="171.5" y="0.0" width="171.5" height="203.5"/>
+                                                <rect key="frame" x="114.5" y="0.0" width="114" height="210.5"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lvD-0z-MyE">
+                                                <rect key="frame" x="228.5" y="0.0" width="114.5" height="210.5"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
                                         </subviews>
                                     </stackView>
@@ -77,6 +80,7 @@
                         <outlet property="qrCodeDImageView" destination="Dlb-tS-zFD" id="CpA-U9-saG"/>
                         <outlet property="qrCodeEImageView" destination="9BE-ef-sif" id="eKs-ZK-Zql"/>
                         <outlet property="qrCodeFView" destination="ys6-BT-KIQ" id="vdb-lj-bhT"/>
+                        <outlet property="qrCodeGView" destination="lvD-0z-MyE" id="EAH-DN-b7z"/>
                         <outletCollection property="innerStackViews" destination="2yq-uT-eYc" collectionClass="NSMutableArray" id="thQ-lf-2In"/>
                         <outletCollection property="innerStackViews" destination="qVI-CS-1uI" collectionClass="NSMutableArray" id="Qh1-Ld-Fgu"/>
                         <outletCollection property="innerStackViews" destination="TXC-jK-UCs" collectionClass="NSMutableArray" id="Mh1-YM-iAG"/>
@@ -84,6 +88,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="132" y="-55"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

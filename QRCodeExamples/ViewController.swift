@@ -11,6 +11,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var qrCodeDImageView: UIImageView!
     @IBOutlet weak var qrCodeEImageView: UIImageView!
     @IBOutlet weak var qrCodeFView: QRCodeView!
+    @IBOutlet weak var qrCodeGView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +47,24 @@ class ViewController: UIViewController {
         qrCodeDImageView.image = try? qrCodeD.image()
         qrCodeEImageView.image = try? qrCodeE.image()
         qrCodeFView.qrCode = qrCodeF
+
+        DispatchQueue.global(qos: .userInteractive).async() { [weak self] in
+            guard let self = self else {return}
+
+            var qrCode = QRCode(string: "qrCode")!
+            qrCode.color = .white
+            qrCode.backgroundColor = UIColor.red // NyxColors.secondaryBackgroundColor // This is color hex 1A202B
+            qrCode.inputCorrection = .low
+            qrCode.size = CGSize.init(width: 456, height: 456)
+
+            DispatchQueue.main.async() {
+                UIView.animate(withDuration: 0.3) {
+//                    self.qrFeedbackContainer.opacity = 0
+                    self.qrCodeGView.layer.contents = try? qrCode.image().cgImage
+                    self.qrCodeGView.layer.opacity = 1
+                }
+            }
+        }
     }
 
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
